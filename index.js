@@ -7,6 +7,8 @@ const detailEpisodeCount = animeDetail.querySelector('.episodes')
 const animeDescription = document.querySelector('#description')
 const animeLikes = document.querySelector('#likes')
 const animeRating = document.querySelector('#rating')
+const likeButtonContainer = document.getElementById('likeButtonContainer')
+const likeButton = document.getElementById('button')
 
 //FETCHING ALL ELEMENTS TO DISPLAY THEM AT THE TOP
 
@@ -36,5 +38,35 @@ function renderAnime(animeObj){
     animeDescription.innerText = animeObj.description
     animeLikes.innerText = `Likes: ${animeObj.likes}`
     animeRating.innerText = ``
-  })
+     //building like button
+    
+     const likeButton = document.createElement('img')
+     likeButton.src = "https://cpng.pikpng.com/pngl/s/167-1675201_mario-grid-aphmau-pixel-art-clipart.png"
+     likeButtonContainer.innerHTML= " "
+     likeButtonContainer.appendChild(likeButton)
+     
+   
+     //LIKES FUNCTIONALITY
+     
+     likeButton.addEventListener('click', () => {
+     
+      
+     animeLikes.innerText = `Likes: ${(animeObj.likes)+=1}`
+
+     data = {likes: animeObj.likes}
+
+     
+     fetch(`http://localhost:3000/anime/${animeObj.id}`, {
+      method: "PATCH",
+      headers: {
+      "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+     .then((r) => r.json())
+     .then((animeObj) => console.log(animeObj));
+})
+})
 }
+
+
