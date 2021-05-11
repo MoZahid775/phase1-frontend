@@ -30,8 +30,8 @@
   
   #anime-list img {
     flex: 0 1 auto;
-    height: 150px;
-    margin-right: 0.5rem;
+    height: 250px;
+    margin-right: 1.1rem;
     cursor: pointer;
   }
   
@@ -44,7 +44,7 @@
   }
   
   .detail-image {
-    height: 350px;
+    width : 823px;
   }
   
   .animeName,
