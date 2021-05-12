@@ -10,6 +10,7 @@ const likeButtonContainer = document.getElementById('likeButtonContainer')
 const likeButton = document.getElementById('button')
 const commentSection = document.getElementById('commentSection')
 const formContainer = document.getElementById('formContainer')
+const videoContainer = document.querySelector('#videoContainer')
 
 //FETCHING ALL ELEMENTS TO DISPLAY THEM AT THE TOP
 
@@ -40,35 +41,49 @@ function renderAnime(animeObj){
     detailEpisodeCount.innerText = `episodes: ${animeObj.episodes}`
     animeDescription.innerText = animeObj.description
     animeLikes.innerText = `Likes: ${animeObj.likes}`
-    //animeRating.innerText = `Rating:`
-     //building like button
     
-     const likeButton = document.createElement('img')
-     likeButton.src = "https://cpng.pikpng.com/pngl/s/167-1675201_mario-grid-aphmau-pixel-art-clipart.png"
-     likeButton.dataset.id = animeObj.id
-     likeButtonContainer.innerHTML= " "
-     likeButtonContainer.appendChild(likeButton)
+    //animeRating.innerText = `Rating:`
      
-     //building submission form
-     formContainer.innerHTML = " "
-     const commentRatingForm = document.createElement('form')
-     commentRatingForm.innerHTML = `<label for="rating">Rating: </label>
-     <input type="text" name="rating" id="rating" value="Insert Rating out of 10" onfocus = 'this.value = ""'/>
-     <label for="comment">Comment: </label>
-     <textarea name="comment" id="comment" onfocus = 'this.value = ""'>Insert Comment Here</textarea>
-     <input type="submit" value="submit" />`
+    //building like button
+    
+    const likeButton = document.createElement('img')
+    likeButton.src = "https://cpng.pikpng.com/pngl/s/167-1675201_mario-grid-aphmau-pixel-art-clipart.png"
+    likeButton.dataset.id = animeObj.id
+    likeButtonContainer.innerHTML= " "
+    likeButtonContainer.appendChild(likeButton)
      
-     const animeRating = document.querySelector('#rating')
-     animeRating.innerText = " "
-     formContainer.appendChild(commentRatingForm)
+    //building submission form
+    formContainer.innerHTML = " "
+    const commentRatingForm = document.createElement('form')
+    commentRatingForm.innerHTML = `<label for="rating">Rating: </label>
+    <input type="text" name="rating" id="rating" value="Insert Rating out of 10" onfocus = 'this.value = ""'/>
+    <label for="comment">Comment: </label>
+    <textarea name="comment" id="comment" onfocus = 'this.value = ""'>Insert Comment Here</textarea>
+    <input type="submit" value="submit" />`
+     
+    const animeRating = document.querySelector('#rating')
+    const adder = (accumulator, currentValue) => accumulator + currentValue
+    const ratingTotal = animeObj.rating.reduce(adder)
+    const ratingArrayLength = animeObj.rating.length
+    animeRating.innerText = `Rating: ${(ratingTotal / ratingArrayLength)}`
+     
+    formContainer.appendChild(commentRatingForm)
 
 
-     //LIKES FUNCTIONALITY
-     
-     likeButton.addEventListener('click', () => {
-     animeLikes.innerText = `Likes: ${(animeObj.likes)+=1}`
+    // VIDEO FUNCTIONALITY
+    
+      videoContainer.innerHTML = ''
+      const animeVideo = document.createElement('div')
+      animeVideo.innerHTML = animeObj.video
+      videoContainer.appendChild(animeVideo)
+    
 
-     data = {likes: animeObj.likes}
+    //LIKES FUNCTIONALITY
+     
+    likeButton.addEventListener('click', () => {
+    animeLikes.innerText = `Likes: ${(animeObj.likes)+=1}`
+
+    data = {likes: animeObj.likes}
 
      
     fetch(`http://localhost:3000/anime/${animeObj.id}`, {
