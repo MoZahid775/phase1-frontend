@@ -39,9 +39,9 @@
     <!--  Form -->
     <form id="anime-rating" data-id="insert anime ID">
       <label for="rating">Rating: </label>
-      <input type="text" name="rating" id="rating" value="Insert Rating out of 10" />
+      <input type="text" name="rating" id="rating" value="Insert Rating out of 10" onfocus = 'this.value = ""'/>
       <label for="comment">Comment: </label>
-      <textarea name="comment" id="comment">Insert Comment Here</textarea>
+      <textarea name="comment" id="comment" onfocus = 'this.value = ""'>Insert Comment Here</textarea>
       <input type="submit" value="submit" />
     </form>
      <!-- Comment Section -->

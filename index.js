@@ -9,6 +9,7 @@ const animeLikes = document.querySelector('#likes')
 const animeRating = document.querySelector('#rating')
 const likeButtonContainer = document.getElementById('likeButtonContainer')
 const likeButton = document.getElementById('button')
+const commentRatingForm = document.querySelector('#anime-rating')
 
 //FETCHING ALL ELEMENTS TO DISPLAY THEM AT THE TOP
 
@@ -37,7 +38,7 @@ function renderAnime(animeObj){
     detailEpisodeCount.innerText = `episodes: ${animeObj.episodes}`
     animeDescription.innerText = animeObj.description
     animeLikes.innerText = `Likes: ${animeObj.likes}`
-    animeRating.innerText = ``
+    animeRating.innerText = `Rating: `
      //building like button
     
      const likeButton = document.createElement('img')
@@ -56,16 +57,40 @@ function renderAnime(animeObj){
      data = {likes: animeObj.likes}
 
      
-     fetch(`http://localhost:3000/anime/${animeObj.id}`, {
+    fetch(`http://localhost:3000/anime/${animeObj.id}`, {
       method: "PATCH",
       headers: {
       "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    })
-     .then((r) => r.json())
-     .then((animeObj) => console.log(animeObj));
+      })
+      .then((r) => r.json())
+      ;
 })
+    // ratings 
+    commentRatingForm.addEventListener('submit', (e) => {
+      e.preventDefault()
+      animeObj.rating.push(parseInt(commentRatingForm.rating.value))
+      console.log(animeObj.rating)
+      const adder = (accumulator, currentValue) => accumulator + currentValue
+      const ratingTotal = animeObj.rating.reduce(adder)
+      const ratingArrayLength = animeObj.rating.length
+      animeRating.innerText = `Rating: ${(ratingTotal / ratingArrayLength)}`
+      // console.log(ratingTotal)
+      // console.log(ratingArrayLength)
+      fetch(`http://localhost:3000/anime/${animeObj.id}`, {
+      method: "PATCH",
+      headers: {
+      "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        rating: animeObj.rating
+      }),
+      })
+      .then((r) => r.json())
+    })
+    
+
 })
 }
 
