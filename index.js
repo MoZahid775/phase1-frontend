@@ -10,6 +10,7 @@ const animeRating = document.querySelector('#rating')
 const likeButtonContainer = document.getElementById('likeButtonContainer')
 const likeButton = document.getElementById('button')
 const commentRatingForm = document.querySelector('#anime-rating')
+const commentSection = document.getElementById('commentSection')
 
 //FETCHING ALL ELEMENTS TO DISPLAY THEM AT THE TOP
 
@@ -29,10 +30,12 @@ fetch("http://localhost:3000/anime")
 //RENDER ONE ANIME OBJ
 
 function renderAnime(animeObj){
+  let id = animeObj.id
   let animeImg = document.createElement('img')
   animeImg.src = animeObj.image
   animeList.appendChild(animeImg)
   animeImg.addEventListener('click', () => {
+    commentSection.innerHTML = " "//will clear the comment section after each click
     detailImage.src = animeObj.image   // will change to square img later with img2
     detailName.innerText = animeObj.name 
     detailEpisodeCount.innerText = `episodes: ${animeObj.episodes}`
@@ -43,6 +46,7 @@ function renderAnime(animeObj){
     
      const likeButton = document.createElement('img')
      likeButton.src = "https://cpng.pikpng.com/pngl/s/167-1675201_mario-grid-aphmau-pixel-art-clipart.png"
+     likeButton.dataset.id = id
      likeButtonContainer.innerHTML= " "
      likeButtonContainer.appendChild(likeButton)
      
@@ -66,11 +70,12 @@ function renderAnime(animeObj){
       })
       .then((r) => r.json())
       ;
-})
-    // ratings 
+  })
+    // ratings & Comment
     commentRatingForm.addEventListener('submit', (e) => {
       e.preventDefault()
       animeObj.rating.push(parseInt(commentRatingForm.rating.value))
+      animeObj.comment.push(commentRatingForm.comment.value)
       console.log(animeObj.rating)
       const adder = (accumulator, currentValue) => accumulator + currentValue
       const ratingTotal = animeObj.rating.reduce(adder)
@@ -84,14 +89,28 @@ function renderAnime(animeObj){
       "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        rating: animeObj.rating
+        rating: animeObj.rating,
+        comment: animeObj.comment
       }),
       })
       .then((r) => r.json())
+      .then((newAnimeObj) => {
+      //Getting ARRAY OF COMMENTS INTO THEIR CONTAINER AT THE BOTTOM
+        commentSection.innerHTML = " "
+        newAnimeObj.comment.forEach((indyComment)=>{
+        
+            let commenth4 = document.createElement('h4')
+            commenth4.innerText = `"${indyComment}"`
+            commentSection.appendChild(commenth4)})})
+            commentRatingForm.reset()
+    })
+    
+    
     })
     
 
-})
+
+
 }
 
 
