@@ -29,6 +29,9 @@ fetch("http://localhost:3000/anime")
 
 //RENDER ONE ANIME OBJ
 
+
+
+
 function renderAnime(animeObj){
   
   let animeImg = document.createElement('img')
@@ -41,13 +44,16 @@ function renderAnime(animeObj){
     detailEpisodeCount.innerText = `episodes: ${animeObj.episodes}`
     animeDescription.innerText = animeObj.description
     animeLikes.innerText = `Likes: ${animeObj.likes}`
+    document.body.style.backgroundImage="https://i.pinimg.com/originals/64/bd/8c/64bd8c1766234cf57464ad1ffa882b02.jpg"
+    //background Image
+   
     
     //animeRating.innerText = `Rating:`
      
     //building like button
     
     const likeButton = document.createElement('img')
-    likeButton.src = "https://cpng.pikpng.com/pngl/s/167-1675201_mario-grid-aphmau-pixel-art-clipart.png"
+    likeButton.src = "https://i.dlpng.com/static/png/6487666_preview.png"
     likeButton.dataset.id = animeObj.id
     likeButtonContainer.innerHTML= " "
     likeButtonContainer.appendChild(likeButton)
