@@ -11,6 +11,7 @@ const likeButton = document.getElementById('button')
 const commentSection = document.getElementById('commentSection')
 const formContainer = document.getElementById('formContainer')
 const videoContainer = document.querySelector('#videoContainer')
+const body = document.querySelector('body')
 
 //FETCHING ALL ELEMENTS TO DISPLAY THEM AT THE TOP
 
@@ -44,7 +45,7 @@ function renderAnime(animeObj){
     detailEpisodeCount.innerText = `episodes: ${animeObj.episodes}`
     animeDescription.innerText = animeObj.description
     animeLikes.innerText = `Likes: ${animeObj.likes}`
-    document.body.style.backgroundImage="https://i.pinimg.com/originals/64/bd/8c/64bd8c1766234cf57464ad1ffa882b02.jpg"
+    body.style.backgroundImage = animeObj.image2
     //background Image
    
     
@@ -53,7 +54,7 @@ function renderAnime(animeObj){
     //building like button
     
     const likeButton = document.createElement('img')
-    likeButton.src = "https://i.dlpng.com/static/png/6487666_preview.png"
+    likeButton.src = "https://lh3.googleusercontent.com/proxy/7v-Mz73c6tWfFwPSOME6_IuXCkGYE_m6iYGjUiOjl-5kALDBu_5nvyFZgBR93RZonpHeT49MFUGUqk9fe-gkbqsmO_O-dkMpUl5DmjreZBcWL0zj5_FopPcq3iTBZj3FBEUT1dVKpWT8MLwAUuS7VmckwBTv-a-6sw"
     likeButton.dataset.id = animeObj.id
     likeButtonContainer.innerHTML= " "
     likeButtonContainer.appendChild(likeButton)

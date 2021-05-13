@@ -12,6 +12,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    /* background-repeat: no-repeat; */
+    background-size: contain;
   }
   
   header {
@@ -112,12 +114,20 @@
 
   #anime-description{
    width: 823px;
-   background-color: #fafafa;
+   background-color: rgba(250, 250, 250, .7) ;
 
- }
+  }
 
- #commentSection h4{
+  #commentSection{
+    background-color: rgba(250, 250, 250, .85);
+    width: 300px;
+  }
+  #commentSection h4{
   font-size: 18px;
-  font-weight: normal;
+  font-weight: bold;
 
-}
+  }
+
+  #formContainer {
+    background-color: rgba(250, 250, 250, .85)
+  }
